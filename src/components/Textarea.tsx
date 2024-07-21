@@ -6,7 +6,7 @@ export function Textarea() {
   return (
     <form className="flex items-start justify-start w-full">
       <textarea
-        data-testid="input"
+        data-testid="textarea"
         cols={40}
         rows={30}
         name="map"

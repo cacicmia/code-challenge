@@ -13,12 +13,12 @@ export function ResultsSection() {
         <>
           <p>Results:</p>
           {result}
-          <p>
-            {/* Letters: <span data-testid="letters">{letters}</span>
+          <div>
+            Letters: <span data-testid="letters">{"letters"}</span>
             <p>
-              Path as characters: <span data-testid="path">{path}</span> */}
-            {/* </p> */}
-          </p>
+              Path as characters: <span data-testid="path">{"path"}</span>
+            </p>
+          </div>
         </>
       )}
     </div>
