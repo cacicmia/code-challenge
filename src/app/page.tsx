@@ -1,12 +1,17 @@
-import Image from "next/image";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { ResultsSection } from "@/components/ResultSection";
+import { Textarea } from "@/components/Textarea";
+import { TextareaValueProvider } from "@/providers/TextAreaProvider";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between p-24">
-      <header className="text-dark">Software sauna coding challenge</header>
-      <main className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <div></div>
-      </main>
+    <div className="flex flex-col md:flex-row h-full items-start justify-between basis-1/2">
+      <TextareaValueProvider>
+        <Textarea />
+        <ErrorBoundary>
+          <ResultsSection />
+        </ErrorBoundary>
+      </TextareaValueProvider>
     </div>
   );
 }
