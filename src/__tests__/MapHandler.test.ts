@@ -1,4 +1,4 @@
-import { mapHandler } from "@/app/service/mapHandler";
+import { mapHandler } from "@/app/services/mapHandler/mapHandler";
 import { MapValidationError } from "@/types/ValidationError";
 const successScenarios = [
   {
