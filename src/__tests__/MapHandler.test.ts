@@ -72,10 +72,10 @@ const successScenarios = [
   {
     name: "should keep direction in compact space",
     input: `
-    +-L-+
-    |  +A-+
-   @B+ ++ H
-    ++    x
+ +-L-+
+ |  +A-+
+@B+ ++ H
+ ++    x
    `,
     result: {
       letters: "BLAH",

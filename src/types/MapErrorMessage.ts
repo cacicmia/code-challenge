@@ -7,4 +7,5 @@ export enum MapErrorMessage {
   BROKEN_PATH = "Broken path",
   FAKE_TURN = "Fake turn after + sign",
   FORK_IN_PATH = "Fork in the path present", // ??
+  UNRECOGNIZABLE_INPUT = "Unrecognizable input",
 }

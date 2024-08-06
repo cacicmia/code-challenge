@@ -4,8 +4,10 @@ import { useTextAreaContext } from "@/providers/TextAreaProvider";
 
 export function ResultsSection() {
   const { textareaValue } = useTextAreaContext();
-  console.log(textareaValue);
   const { result, error } = useMapCalculation(textareaValue);
+  if (error) {
+    console.error(error);
+  }
 
   return (
     <div className="flex flex-col items-start justify-start w-full pl-8">

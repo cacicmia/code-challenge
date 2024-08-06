@@ -11,7 +11,7 @@ export function Textarea() {
         rows={30}
         name="map"
         value={textareaValue}
-        className="w-full"
+        className="w-full border resize-none p-0"
         onChange={(e) => {
           setTextareaValue(e.target.value);
         }}

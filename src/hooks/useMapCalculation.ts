@@ -23,6 +23,6 @@ export function useMapCalculation(textareaValue: string): {
     }
 
     return () => {};
-  }, [textareaValue]);
+  }, [textareaValue, setValue, setError]);
   return { result: value, error };
 }
