@@ -1,4 +1,3 @@
-import { mapInputToGrid } from "../mapInputToGrid";
 import { GridValidationError } from "@/types/ValidationError";
 import { getSurroundingCharacters } from "../charHandlers/getSurroundingCharacters";
 import { GridErrorMessage } from "@/types/GridErrorMessage";
@@ -9,6 +8,7 @@ import { getStartingChar } from "../charHandlers/getStartingChar";
 import { END_CHAR } from "../constants";
 import { CharData, CharCoordinates } from "@/types/CharTypes";
 import { Direction, Offset } from "@/types/GridTypes";
+import { isNextInDirection } from "./isNextInDirection";
 
 export function getGridPathSigns(grid: string[][]): CharData[] {
   const firstCharData = getStartingChar(grid);
@@ -42,21 +42,14 @@ export function getGridPathSigns(grid: string[][]): CharData[] {
         nextCoordinates = nextPossibilities[0];
         direction = currentCoordinates.x === nextCoordinates.x ? "y" : "x";
       } else {
-        nextCoordinates = nextPossibilities?.find((posibilityCoordinates) => {
-          if (nextOffset) {
-            return (
-              posibilityCoordinates[direction as "x" | "y"] ===
-              currentCoordinates[direction as "x" | "y"] + nextOffset!
-            );
-          } else {
-            return (
-              posibilityCoordinates[direction as "x" | "y"] ===
-                currentCoordinates[direction as "x" | "y"] + 1 ||
-              posibilityCoordinates[direction as "x" | "y"] ===
-                currentCoordinates[direction as "x" | "y"] - 1
-            );
-          }
-        });
+        nextCoordinates = nextPossibilities?.find((posibilityCoordinates) =>
+          isNextInDirection(
+            posibilityCoordinates,
+            currentChar.coordinates,
+            direction,
+            nextOffset
+          )
+        );
       }
 
       if (!nextCoordinates) {
