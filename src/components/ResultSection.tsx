@@ -1,16 +1,16 @@
 "use client";
-import { useMapCalculation } from "@/hooks/useMapCalculation";
+import { useGridCalculation } from "@/hooks/useGridCalculation";
 import { useTextAreaContext } from "@/providers/TextAreaProvider";
 
-export function ResultsSection() {
+export function ResultSection() {
   const { textareaValue } = useTextAreaContext();
-  const { result, error } = useMapCalculation(textareaValue);
+  const { result, error } = useGridCalculation(textareaValue);
   if (error) {
     console.error(error);
   }
 
   return (
-    <div className="flex flex-col items-start justify-start w-full pl-8">
+    <div className="flex flex-col items-start justify-start w-full p-8">
       {error && (
         <div>
           <span data-testid="error">{error.message}</span>

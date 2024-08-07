@@ -1,6 +1,6 @@
-import { CharCoordinates } from "@/types/mapCharTypes";
-import { MapValidationError } from "@/types/ValidationError";
-import { MapErrorMessage } from "@/types/MapErrorMessage";
+import { GridValidationError } from "@/types/ValidationError";
+import { GridErrorMessage } from "@/types/GridErrorMessage";
+import { CharCoordinates } from "@/types/CharTypes";
 
 export type CharacterLookupFunction = (
   x: number,
@@ -13,7 +13,7 @@ export function getSurroundingCharacters(
   grid: string[][],
   lastAddedCharCoordinates: CharCoordinates
 ): CharCoordinates[] {
-  const { lengthX, lengthY } = getArrayLength(grid);
+  const { lengthX, lengthY } = getGridDimensions(grid);
   const { x, y } = lastAddedCharCoordinates;
   const possibleNextChars = [horizontalLookup, verticalLookup]
     ?.map((fn) => (fn.length > 0 ? fn(x, y, lengthX, lengthY) : []))
@@ -26,13 +26,13 @@ export function getSurroundingCharacters(
     return true;
   });
   if (nextCoordinates.length === 0) {
-    throw new MapValidationError(MapErrorMessage.BROKEN_PATH);
+    throw new GridValidationError(GridErrorMessage.BROKEN_PATH);
   }
 
   return nextCoordinates;
 }
 
-export function getArrayLength(grid: string[][]) {
+export function getGridDimensions(grid: string[][]) {
   const lengthY: number = grid.length - 1;
   const lengthX: number =
     (grid

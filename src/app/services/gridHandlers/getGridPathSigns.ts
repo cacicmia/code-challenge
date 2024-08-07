@@ -1,29 +1,24 @@
-import {
-  CharCoordinates,
-  CharData,
-  Direction,
-  Offset,
-} from "@/types/mapCharTypes";
-import { getFirstChar } from "./getFirstChar";
-import { mapInputToArray } from "./mapInputToArray";
-import {
-  filterOutPreviousCharacter,
-  getDirection,
-  getNextOffset,
-} from "./charHandlerFunctions";
-import { MapValidationError } from "@/types/ValidationError";
-import { getSurroundingCharacters } from "./getSurroundingCharacters";
-import { MapErrorMessage } from "@/types/MapErrorMessage";
+import { mapInputToGrid } from "../mapInputToGrid";
+import { GridValidationError } from "@/types/ValidationError";
+import { getSurroundingCharacters } from "../charHandlers/getSurroundingCharacters";
+import { GridErrorMessage } from "@/types/GridErrorMessage";
+import { filterOutPreviousCharacter } from "../charHandlers/filterOutPreviousCharacter";
+import { getNextOffset } from "../charHandlers/getNextOffset";
+import { getDirection } from "../charHandlers/getDirection";
+import { getStartingChar } from "../charHandlers/getStartingChar";
+import { END_CHAR } from "../constants";
+import { CharData, CharCoordinates } from "@/types/CharTypes";
+import { Direction, Offset } from "@/types/GridTypes";
 
-export function getMapPathSigns(input: string): CharData[] {
-  const grid = mapInputToArray(input);
-  const firstCharData = getFirstChar(grid);
+export function getGridPathSigns(input: string): CharData[] {
+  const grid = mapInputToGrid(input);
+  const firstCharData = getStartingChar(grid);
   const pathWithData: CharData[] = [firstCharData];
 
   let direction: Direction;
   let nextOffset: Offset | undefined;
   try {
-    while (pathWithData[pathWithData.length - 1].value !== "x") {
+    while (pathWithData[pathWithData.length - 1].char !== END_CHAR) {
       const currentChar = pathWithData[pathWithData.length - 1];
 
       const currentCoordinates = currentChar.coordinates;
@@ -42,7 +37,7 @@ export function getMapPathSigns(input: string): CharData[] {
 
       let nextCoordinates: CharCoordinates | undefined;
       const isLetterOnTurn =
-        nextPossibilities.length === 1 && currentChar.value.match(/[A-Z]/g);
+        nextPossibilities.length === 1 && currentChar.char.match(/[A-Z]/g);
 
       if (direction === undefined || isLetterOnTurn) {
         nextCoordinates = nextPossibilities[0];
@@ -66,15 +61,14 @@ export function getMapPathSigns(input: string): CharData[] {
       }
 
       if (!nextCoordinates) {
-        throw new MapValidationError(MapErrorMessage.BROKEN_PATH);
-        // throw new MapValidationError(MapErrorMessage.FORK_IN_PATH);
+        throw new GridValidationError(GridErrorMessage.BROKEN_PATH);
       }
-      const value = grid[nextCoordinates.y][nextCoordinates.x];
+      const char = grid[nextCoordinates.y][nextCoordinates.x];
 
-      direction = getDirection(value, direction);
+      direction = getDirection(char, direction);
       pathWithData.push({
         coordinates: nextCoordinates,
-        value,
+        char,
       });
 
       nextOffset = getNextOffset(
@@ -84,7 +78,7 @@ export function getMapPathSigns(input: string): CharData[] {
       );
     }
   } catch (e: any) {
-    throw new MapValidationError(e?.message || JSON.stringify(e));
+    throw new GridValidationError(e?.message || JSON.stringify(e));
   }
   return pathWithData;
 }

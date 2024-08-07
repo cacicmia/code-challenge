@@ -1,6 +1,6 @@
-export class MapValidationError extends Error {
+export class GridValidationError extends Error {
   constructor(message: string) {
     super(message);
-    this.name = "MapValidationError";
+    this.name = "GridValidationError";
   }
 }

@@ -1,6 +1,6 @@
 import { TextareaValueProvider } from "@/providers/TextAreaProvider";
 import { ErrorBoundary } from "./ErrorBoundary";
-import { ResultsSection } from "./ResultSection";
+import { ResultSection } from "./ResultSection";
 import { Textarea } from "./Textarea";
 
 export function Main() {
@@ -8,7 +8,7 @@ export function Main() {
     <TextareaValueProvider>
       <Textarea />
       <ErrorBoundary>
-        <ResultsSection />
+        <ResultSection />
       </ErrorBoundary>
     </TextareaValueProvider>
   );

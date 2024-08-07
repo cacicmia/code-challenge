@@ -1,5 +1,5 @@
-import { mapHandler } from "@/app/services/mapHandler/mapHandler";
-import { MapValidationError } from "@/types/ValidationError";
+import { gridHandler } from "@/app/services/gridHandler";
+import { GridValidationError } from "@/types/ValidationError";
 const successScenarios = [
   {
     name: "should return empty value when provided with an empty value",
@@ -96,7 +96,7 @@ const successScenarios = [
 ];
 describe.each(successScenarios)("valid maps tests", (scenario) => {
   it(scenario.name, () => {
-    const { path, letters } = mapHandler(scenario.input);
+    const { path, letters } = gridHandler(scenario.input);
 
     expect(path).toBe(scenario.result.path);
     expect(letters).toBe(scenario.result.letters);
@@ -173,6 +173,6 @@ x-B-@-A-x
 ];
 describe.each(failedScenarios)("invalid maps", (scenario) => {
   it(scenario.name, () => {
-    expect(() => mapHandler(scenario.input)).toThrow(MapValidationError);
+    expect(() => gridHandler(scenario.input)).toThrow(GridValidationError);
   });
 });
