@@ -3,13 +3,16 @@ import { EMPTY_RETURN } from "./constants";
 import { getGridPathSigns } from "./gridHandlers/getGridPathSigns";
 import { getPath } from "./gridHandlers/getPath";
 import { getLetters } from "./gridHandlers/getLetters";
+import { mapInputToGrid } from "./mapInputToGrid";
 
 export function gridHandler(input: string) {
   if (!input) {
     return EMPTY_RETURN;
   }
   validateTextarea(input);
-  const pathWithValues = getGridPathSigns(input);
+
+  const grid = mapInputToGrid(input);
+  const pathWithValues = getGridPathSigns(grid);
   const path = getPath(pathWithValues);
   const letters = getLetters(pathWithValues);
 

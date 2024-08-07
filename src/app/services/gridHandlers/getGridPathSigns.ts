@@ -10,8 +10,7 @@ import { END_CHAR } from "../constants";
 import { CharData, CharCoordinates } from "@/types/CharTypes";
 import { Direction, Offset } from "@/types/GridTypes";
 
-export function getGridPathSigns(input: string): CharData[] {
-  const grid = mapInputToGrid(input);
+export function getGridPathSigns(grid: string[][]): CharData[] {
   const firstCharData = getStartingChar(grid);
   const pathWithData: CharData[] = [firstCharData];
 
